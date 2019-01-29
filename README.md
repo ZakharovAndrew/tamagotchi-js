@@ -1,0 +1,2 @@
+# tamagotchi-js
+Tamagotchi JS

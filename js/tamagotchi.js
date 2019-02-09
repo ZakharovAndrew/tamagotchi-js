@@ -35,30 +35,42 @@ var Tamagothci = {
 	},
 
 	isAlive: function () {
-        if (this.foodLevel > 0 && this.healthLevel > 0 ) {
-            return true;
-        } else {
+        if (this.foodLevel == 0 && this.healthLevel == 0 ) {
             return false;
+        } else {
+            return true;
         }
     },
 	
 	states: function () {
-        var score = (Tamagothci.healthLevel + Tamagothci.foodLevel + Tamagothci.happinessLevel)/3;
+        var score = (Tamagothci.healthLevel + Tamagothci.foodLevel)/2;
 		if (score > 7) {
-            return "(ಠ‿ಠ)";
+            return 1;
         } else if (score > 3) {
-            return "(ಠ_ಠ)";
+            return 2;
         } else {
-            return "(ಥ﹏ಥ)";
+            return 3;
         };
     },
 
 	step: function () {
-		this.healthLevel--;
 		this.foodLevel--;
 		this.happinessLevel--;
+		if (this.happinessLevel < 0 && this.foodLevel < 0) {
+			this.stepHealth();
+		}
 		if (this.happinessLevel < 0) {
 			this.happinessLevel = 0;
 		}
+		if (this.foodLevel < 2) {
+			this.healthLevel--;
+		}
+		if (this.foodLevel < 0) {
+			this.foodLevel = 0;
+		}
+	},
+	
+	stepHealth: function () {
+		this.healthLevel--;
 	},
 }
